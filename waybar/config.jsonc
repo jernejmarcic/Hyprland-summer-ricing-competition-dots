@@ -1,0 +1,203 @@
+{
+    "layer": "top",
+    "position": "top",
+    "mod": "dock",
+    "exclusive": true,
+    "passtrough": false,
+    "gtk-layer-shell": true,
+    "height": 0,
+    "modules-left": [
+    "clock",
+        "cpu",
+        "memory",
+        // "custom/weather",
+    "wlr/workspaces"
+	
+    ],
+    "modules-center": ["hyprland/window"],
+    "modules-right": [
+        "tray",
+        "network",
+        "network#wifistrenght",
+        "backlight",
+        // "custom/updates",
+        // "custom/language",
+        "pulseaudio",
+        "pulseaudio#microphone",
+	    "battery",
+	    "battery#icon",
+	    "custom/powermenu"
+    ], 
+
+    "hyprland/window": {
+        "format": "{}"
+    },
+    "wlr/workspaces": {
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "10": "10",
+
+
+        "all-outputs": true,
+        "on-click": "activate",
+        "format": "{icon}",
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "10": "10",
+
+
+
+            "urgent": "",
+            // "active": "",
+            "default": ""
+          }
+    },
+    
+     "cpu": {
+         "interval": 10,
+         "hwmon-path-abs": "/sys/devices/platform/coretemp.0/hwmon",
+	     "input-filename": "temp1_input",
+         "format": " {}%",
+         "max-length": 10,
+
+         "format-alt": "{temperatureC}°C"
+     },
+     "memory": {
+         "interval": 30,
+         "format": " {}%",
+         "format-alt":" {used:0.1f}G",
+         "max-length": 10
+     },
+
+    "backlight": {
+        "exec": "light -G",
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+
+    "custom/updates": {
+        "exec": "(paru -Qua) | wc -l",
+        "interval": 7200,
+        "format": " {}"
+    },
+    // "custom/language": {
+    //     "exec": "cat /tmp/kb_layout",
+    //     "interval": 3,
+    //     "format": " {}",
+    //     "tooltip": false
+    // },
+    "custom/weather" : {
+        "tooltip" : true,
+        "format" : "{}",
+        "restart-interval" : 300,
+        "exec" : "~/.config/waybar/scripts/waybar-wttr.py",
+        "return-type" : "json"
+    },
+    "tray": {
+        "icon-size": 13,
+        "tooltip": false,
+        "spacing": 10
+    },
+    "clock": {
+	"interval": 1,
+        "format": "{: %R:%S   %d/%m}",
+         "format-alt": "{temperatureC}°C",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "tooltip": false,
+        "format-muted": "󰸈 Muted",
+        "on-click": "pamixer -t",
+        "on-scroll-up": "pamixer -i 1",
+        "on-scroll-down": "pamixer -d 1",
+        "scroll-step": 1,
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["󰸈", "", "", "󰕾", ""]
+        }
+    },
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "tooltip": false,
+        "format-source": " {volume}%",
+        "format-source-muted": " Muted",
+        "on-click": "pamixer --default-source -t",
+        "on-scroll-up": "pamixer --default-source -i 5",
+        "on-scroll-down": "pamixer --default-source -d 5",
+        "scroll-step": 5
+    },
+
+
+    "battery": {
+
+    "interval": 60,
+   
+    "format": "{capacity}%",
+    "format-alt": "{power}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+     
+    },
+
+    "battery#icon": {
+
+    "format": "{icon}",    
+    "format-icons": {
+        "default": ["󱃍", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰂃"],
+        "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
+    },
+    "format-charging": "{icon}",
+    "format-plugged": "{capacity}% ",
+    "format-alt": "{time} {icon}"
+    },
+
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "{icon}",
+        "on-click": "./.config/wofi/wifimenu.sh",
+        "format-icons": ["󰤯", "󰤟", "󰤟", "󰤥", "󰤨"],
+        "format-disconnected" : "󰤫",
+        "format-ethernet": "󰈀"
+
+    },
+
+    "network#wifistrenght" : {
+    "format-wifi": "{signalStrength}%",
+
+   // "format-ethernet": "{ipaddr}/{cidr}",
+    "tooltip-format": "{ifname} via {gwaddr} ",
+    "format-disconnected": "Disconnected ⚠",
+    "format-alt": "{essid}| {ifname}: {ipaddr}/{cidr}"
+    },
+
+   "custom/powermenu": {
+        "format": "",
+        "on-click": "./.config/rofi/powermenu/type-2/powermenu.sh",
+        "tooltip": false
+    }
+
+}
+
